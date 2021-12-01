@@ -23,7 +23,7 @@
         <!--Pestaña JUGAR-->
         <TabItem Header="Jugar">
             <DockPanel>
-                <StackPanel DockPanel.Dock="Bottom" 
+                <StackPanel DockPanel.Dock="Bottom"
                             Orientation="Horizontal"
                             HorizontalAlignment="Center">
                     <Image Style="{StaticResource imagesFlechas}"
@@ -40,17 +40,38 @@
                 </StackPanel>
                 <TextBlock DockPanel.Dock="Top"
                            Text="Cartel de la película"
-                           Margin="10,10,0,0"/>
-                <StackPanel Margin="10"
-                    DockPanel.Dock="Right"
-                            Background="Red"
-                            Width="500">
-                    
-                </StackPanel>
-                
+                           Margin="10,10,0,0" />
+
+                <Grid DockPanel.Dock="Right"
+                      Width="400">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Puntuación: " />
+                    <TextBox Grid.Row="1"
+                             Width="150"
+                             Height="100"
+                             HorizontalAlignment="Left" />
+                    <Button Grid.Column="1"
+                            Content="Nueva partida" />
+                    <Button Grid.Column="1"
+                            Grid.Row="2"
+                            Content="Finalizar partida" />
+                </Grid>
                 <Image Margin="10"
-                    Stretch="Fill"
-                    Source="{Binding Path=PeliculaActual.Cartel}"/>
+                       Stretch="Fill"
+                       Source="{Binding Path=PeliculaActual.Cartel}" />
             </DockPanel>
         </TabItem>
     </TabControl>

@@ -63,7 +63,6 @@ class PeliculaMVVM : ObservableObject
             ContadorPeliculaActual--;
             PeliculaActual = listaPeliculas[ContadorPeliculaActual - 1];
         }
-
     }
 }
 
