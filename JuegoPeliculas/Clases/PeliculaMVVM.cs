@@ -10,17 +10,23 @@ using System.Threading.Tasks;
 
 class PeliculaMVVM : ObservableObject
 {
-    private ObservableCollection<Pelicula> listaPeliculas;
+    
     private ListaPeliculasService servicioPeliculas;
     private AzureService azureService;
 
     public PeliculaMVVM()
     {
         servicioPeliculas = new ListaPeliculasService();
-        listaPeliculas = servicioPeliculas.GetPeliculas();
-        PeliculaActual = listaPeliculas.FirstOrDefault();
+        _listaPeliculas = servicioPeliculas.GetPeliculas();
+        PeliculaActual = _listaPeliculas.FirstOrDefault();
         ContadorPeliculaActual = 1;
-        TotalPeliculas = listaPeliculas.Count;
+        TotalPeliculas = _listaPeliculas.Count;
+    }
+
+    private ObservableCollection<Pelicula> _listaPeliculas;
+    public ObservableCollection<Pelicula> Peliculas {
+        get { return _listaPeliculas; }
+        set { SetProperty(ref _listaPeliculas, value); } 
     }
 
     private Pelicula _peliculaActual;
@@ -52,7 +58,7 @@ class PeliculaMVVM : ObservableObject
         if (ContadorPeliculaActual < TotalPeliculas)
         {
             ContadorPeliculaActual++;
-            PeliculaActual = listaPeliculas[ContadorPeliculaActual - 1];
+            PeliculaActual = _listaPeliculas[ContadorPeliculaActual - 1];
         }
 
     }
@@ -61,7 +67,7 @@ class PeliculaMVVM : ObservableObject
         if (ContadorPeliculaActual > 1)
         {
             ContadorPeliculaActual--;
-            PeliculaActual = listaPeliculas[ContadorPeliculaActual - 1];
+            PeliculaActual = _listaPeliculas[ContadorPeliculaActual - 1];
         }
     }
 }
