@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:JuegoPeliculas"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="450"
-        Width="800">
+        Height="650"
+        Width="950">
 
     <Window.Resources>
         <!--Estilo flechas-->
@@ -57,43 +57,43 @@
                         <RowDefinition Height="auto"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Puntuación"/>
+                    <TextBlock Text="Puntuación" />
                     <TextBox Grid.Row="1"
                              Grid.RowSpan="2"
                              Height="100"
                              Width="150"
-                             HorizontalAlignment="Left"/>
+                             HorizontalAlignment="Left" />
                     <Button Grid.Column="1"
-                        Grid.Row="1" 
+                            Grid.Row="1"
                             Content="Nueva partida"
                             Height="20"
-                            VerticalAlignment="Top"/>
+                            VerticalAlignment="Top" />
                     <Button Grid.Column="1"
                             Grid.Row="2"
                             Content="Finalizar partida"
                             Height="20"
-                            VerticalAlignment="Top"/>
+                            VerticalAlignment="Top" />
                     <TextBlock Grid.Row="3"
-                        Text="Título de la película"
-                               Margin="0,30,0,0"/>
+                               Text="Título de la película"
+                               Margin="0,30,0,0" />
                     <TextBox x:Name="textBoxPelicula"
-                        Grid.Row="4"/>
+                             Grid.Row="4" />
                     <Button Grid.Column="1"
                             Grid.Row="4"
                             Content="Validar"
-                            Width="60"/>
+                            Width="60" />
                     <CheckBox x:Name="checkBoxPista"
-                        Grid.Row="5"
-                        Content="Ver pista"
-                              Margin="0,30,0,0"/>
+                              Grid.Row="5"
+                              Content="Ver pista"
+                              Margin="0,30,0,0" />
                     <TextBlock Grid.Row="6"
-                        Text="Pista"/>
+                               Text="Pista" />
                     <Image Grid.Row="7"
                            Grid.ColumnSpan="2"
                            Source="Assets/terror.png"
                            Width="50"
                            HorizontalAlignment="Center"
-                           Margin="0,30,0,0"/>
+                           Margin="0,30,0,0" />
                 </Grid>
                 <Image Margin="10"
                        Stretch="Fill"
@@ -101,33 +101,103 @@
             </DockPanel>
         </TabItem>
         <TabItem Header="Gestionar">
-            <DockPanel>
+            <DockPanel Margin="10">
                 <StackPanel DockPanel.Dock="Right"
-                            Background="Black"
-                            Width="250">
+                            VerticalAlignment="Top"
+                            Width="250"
+                            Height="200">
+                    <Button Content="Cargar de JSON"
+                            Width="100" />
+                    <Button Content="Guardar en JSON"
+                            Width="100"
+                            Margin="0,10,0,0" />
+
+                    <StackPanel Margin="0,50,0,0">
+                        <Button Content="Añadir película"
+                                Width="100" />
+                        <Button Content="Editar película"
+                                Width="100"
+                                Margin="0,10,0,0" />
+                        <Button Content="Eliminar película"
+                                Width="100"
+                                Margin="0,10,0,0" />
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel DockPanel.Dock="Bottom">
-                    
-                </StackPanel>
-                <ListBox ItemsSource="{Binding Path=Peliculas}">
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel></WrapPanel>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="Black"
-                                    BorderThickness="1">
-                                <DockPanel>
-                                    <Image Source="{Binding Path=Cartel}"
-                                           Width="200"
-                                           Height="200"/>
-                                </DockPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <DockPanel DockPanel.Dock="Bottom"
+                           LastChildFill="False"
+                           Margin="0,10,0,0">
+                    <StackPanel Orientation="Horizontal"
+                                Margin="10,0,0,0">
+                        <TextBlock Text="Nivel de dificultad" />
+                        <ComboBox DockPanel.Dock="Left"
+                                  Margin="30,0,0,0"
+                                  Width="70" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="70,0,0,0">
+                        <TextBlock Text="Género"/>
+                        <ComboBox DockPanel.Dock="Left"
+                                  Margin="30,0,0,0"
+                                  Width="70" />
+                    </StackPanel>
+                </DockPanel>
+                <Grid DockPanel.Dock="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Título de la película" />
+                    <TextBox Grid.Column="1"
+                             Margin="0,0,0,10" />
+                    <TextBlock Grid.Row="1"
+                               Text="Pista de la película" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="1"
+                             Margin="0,0,0,10" />
+                    <TextBlock Grid.Row="2"
+                               Text="Imagen de la película" />
+                    <TextBox Grid.Column="1"
+                             Grid.Row="2"
+                             Margin="0,0,0,10" />
+                    <Button Grid.Column="2"
+                            Grid.Row="2"
+                            Content="Examinar"
+                            Width="100" />
+                </Grid>
+                <WrapPanel>
+                    <ListBox ItemsSource="{Binding Path=Peliculas}"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Black"
+                                        BorderThickness="1"
+                                        Width="200"
+                                        Height="200"
+                                        HorizontalAlignment="Center">
+                                    <DockPanel LastChildFill="False">
+                                        <TextBlock DockPanel.Dock="Bottom"
+                                                   Text="{Binding Path=Titulo}" 
+                                                   HorizontalAlignment="Center"/>
+                                        <Image Source="{Binding Path=Cartel}"
+                                               DockPanel.Dock="Top"/>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </WrapPanel>
             </DockPanel>
         </TabItem>
     </TabControl>
