@@ -1,7 +1,9 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,17 +12,30 @@ using System.Threading.Tasks;
 
 class PeliculaMVVM : ObservableObject
 {
-    
+    /*Me he quedado a medias de usar el azureService*/
+
+
     private ListaPeliculasService servicioPeliculas;
     private AzureService azureService;
-
+    private List<String> _nivelesDificultad;
+    private List<String> _generos;
     public PeliculaMVVM()
     {
         servicioPeliculas = new ListaPeliculasService();
-        _listaPeliculas = servicioPeliculas.GetPeliculas();
-        PeliculaActual = _listaPeliculas.FirstOrDefault();
         ContadorPeliculaActual = 1;
-        TotalPeliculas = _listaPeliculas.Count;
+        _nivelesDificultad = new List<String> {"Fácil", "Normal", "Difícil" };
+        _generos = new List<String> { "Comedia", "Drama", "Acción", "Terror", "Ciencia-ficción" };
+    }
+
+    public List<String> Generos
+    {
+        get { return _generos; }
+        set { SetProperty(ref _generos, value); }
+    }
+    public List<String> Dificultades 
+    { 
+        get { return _nivelesDificultad; }
+        set {SetProperty(ref _nivelesDificultad, value); } 
     }
 
     private ObservableCollection<Pelicula> _listaPeliculas;
@@ -53,6 +68,8 @@ class PeliculaMVVM : ObservableObject
         set { SetProperty(ref _totalPeliculas, value); }
     }
 
+
+    //Métodos
     public void Avanzar()
     {
         if (ContadorPeliculaActual < TotalPeliculas)
@@ -70,5 +87,23 @@ class PeliculaMVVM : ObservableObject
             PeliculaActual = _listaPeliculas[ContadorPeliculaActual - 1];
         }
     }
+    public void cargarDatos()
+    {
+        Peliculas = servicioPeliculas.GetPeliculas();
+        TotalPeliculas = _listaPeliculas.Count;
+        PeliculaActual = _listaPeliculas.FirstOrDefault();
+    }
+    public void exportarDatos()
+    {
+        string personasJson = JsonConvert.SerializeObject(Peliculas);
+        File.WriteAllText("personas.json", personasJson);
+    }
+
+    public string subirImagenAzure(string url)
+    {
+
+        return "";
+    }
+
 }
 

@@ -43,7 +43,8 @@
                            Margin="10,10,0,0" />
 
                 <Grid DockPanel.Dock="Right"
-                      Width="400">
+                      Width="400"
+                      Margin="0,0,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -97,7 +98,7 @@
                 </Grid>
                 <Image Margin="10"
                        Stretch="Fill"
-                       Source="{Binding Path=PeliculaActual.Cartel}" />
+                       Source="{Binding Path=PeliculaActual.Cartel}"/>
             </DockPanel>
         </TabItem>
         <TabItem Header="Gestionar">
@@ -106,11 +107,19 @@
                             VerticalAlignment="Top"
                             Width="250"
                             Height="200">
-                    <Button Content="Cargar de JSON"
-                            Width="100" />
-                    <Button Content="Guardar en JSON"
+                    
+                    <!--Usar OpenFileDialog-->
+                    <Button x:Name="buttonCargarDatos"
+                        Content="Cargar de JSON"
+                            Width="100" 
+                            Click="buttonCargarDatos_Click"/>
+                    
+                    <!--User SaveFileDialog-->
+                    <Button x:Name="buttonGuardarDatos"
+                        Content="Guardar en JSON"
                             Width="100"
-                            Margin="0,10,0,0" />
+                            Margin="0,10,0,0" 
+                            Click="buttonGuardarDatos_Click"/>
 
                     <StackPanel Margin="0,50,0,0">
                         <Button Content="Añadir película"
@@ -131,14 +140,18 @@
                         <TextBlock Text="Nivel de dificultad" />
                         <ComboBox DockPanel.Dock="Left"
                                   Margin="30,0,0,0"
-                                  Width="70" />
+                                  Width="80" 
+                                  ItemsSource="{Binding Path=Dificultades}"
+                                  SelectedItem="{Binding Path=PeliculaActual.Nivel}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 Margin="70,0,0,0">
                         <TextBlock Text="Género"/>
                         <ComboBox DockPanel.Dock="Left"
                                   Margin="30,0,0,0"
-                                  Width="70" />
+                                  Width="80" 
+                                  ItemsSource="{Binding Path=Generos}"
+                                  SelectedItem="{Binding Path=PeliculaActual.Genero}"/>
                     </StackPanel>
                 </DockPanel>
                 <Grid DockPanel.Dock="Bottom">
@@ -155,24 +168,36 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="Título de la película" />
                     <TextBox Grid.Column="1"
-                             Margin="0,0,0,10" />
+                             Margin="0,0,0,10" 
+                             Text="{Binding Path= PeliculaActual.Titulo,
+                        UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBlock Grid.Row="1"
                                Text="Pista de la película" />
                     <TextBox Grid.Column="1"
                              Grid.Row="1"
-                             Margin="0,0,0,10" />
+                             Margin="0,0,0,10"
+                             Text="{Binding Path= PeliculaActual.Pista,
+                        UpdateSourceTrigger=PropertyChanged}" />
                     <TextBlock Grid.Row="2"
                                Text="Imagen de la película" />
-                    <TextBox Grid.Column="1"
+                    <TextBox x:Name="textBoxImagen"
+                        Grid.Column="1"
                              Grid.Row="2"
-                             Margin="0,0,0,10" />
-                    <Button Grid.Column="2"
+                             Margin="0,0,0,10"
+                             Text="{Binding Path= PeliculaActual.Cartel,
+                        UpdateSourceTrigger=PropertyChanged}" />
+                    
+                    <!--Usar OpenFileDialog-->
+                    <Button x:Name="buttonExaminar"
+                        Grid.Column="2"
                             Grid.Row="2"
                             Content="Examinar"
-                            Width="100" />
+                            Width="100" 
+                            Click="buttonExaminar_Click"/>
                 </Grid>
                 <WrapPanel>
                     <ListBox ItemsSource="{Binding Path=Peliculas}"
+                             SelectedItem="{Binding Path=PeliculaActual}"
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>

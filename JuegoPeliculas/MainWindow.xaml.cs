@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +38,27 @@ namespace JuegoPeliculas
         private void imageAtras_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             vm.Retroceder();
+        }
+
+        private void buttonCargarDatos_Click(object sender, RoutedEventArgs e)
+        {
+            vm.cargarDatos();
+        }
+
+        private void buttonGuardarDatos_Click(object sender, RoutedEventArgs e)
+        {
+            vm.exportarDatos();
+        }
+
+        private void buttonExaminar_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+
+                textBoxImagen.Text = openFileDialog.FileName;
+            }
+                
         }
     }
 }
